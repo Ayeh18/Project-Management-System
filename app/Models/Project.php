@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Project extends Model
+{
+    /** @use HasFactory<\Database\Factories\ProjectFactory> */
+    use HasFactory;
+
+    protected $fillable = ['image_path', 'name', 'description', 'status', 'due_date', 'created_by', 'updated_by'];
+
+    // Define relationship with Task model
+    // A project can have many tasks
+    public function tasks(){
+        return $this->hasMany(Task::class);
+    }
+
+    // Define relationship with User model for created_by
+    public function createdBy(){
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    // Define relationship with User model for updated_by
+    public function updatedBy(){
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+}
