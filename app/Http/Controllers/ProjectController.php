@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\TaskResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -99,6 +100,7 @@ class ProjectController extends Controller
             'project' => new ProjectResource($project),
             'tasks' => TaskResource::collection($tasks),
             'queryParams' => request()->query() ?: null,
+            'success' => session('success')
         ]);
     }
 
@@ -107,7 +109,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return inertia('Project/Edit', [
+            'project' => new ProjectResource($project),
+        ]);
     }
 
     /**
@@ -115,7 +119,18 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $data =$request->validated();
+        $image = $data['image'] ?? null;
+        $data['updated_by'] = Auth::id();
+        if ($image) {
+            if($project->image_path){
+                Storage::disk('public')->deleteDirectory(dirname($project->image_path));
+            }
+            $data['image_path'] = $image->store('project/' . Str::random(), 'public');
+        }
+        $project->update($data);
+
+        return to_route('project.index')->with('success', "Project \"$project->name\" was updated");
     }
 
     /**
@@ -123,6 +138,11 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $name = $project->name; 
+        $project->delete();
+        if($project->image_path){
+                Storage::disk('public')->deleteDirectory(dirname($project->image_path));
+            }
+        return to_route('project.index')->with('success', "Project \"$name\" was deleted");
     }
 }
