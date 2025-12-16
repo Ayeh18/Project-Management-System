@@ -40,7 +40,13 @@ export default function Show({ auth, user, tasks, queryParams }) {
 
                   <div className="mt-4">
                     <label className="font-bold text-lg">User Status</label>
+<<<<<<< HEAD
                     <p className="mt-1">{user.status}</p>
+=======
+                    <p className="mt-1">
+                      {user.status}
+                    </p>
+>>>>>>> 02cfafb (fix existing problem)
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg">Created By</label>

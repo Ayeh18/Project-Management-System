@@ -1,12 +1,11 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Description } from "@headlessui/react";
 import { Head, Link, useForm } from "@inertiajs/react";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 
 export default function Create({ auth, user }) {
-  const { data, setData, post, processing, errors, reset } = useForm({
+  const { data, setData, post, errors } = useForm({
     name: user.name || "",
     email: user.email || "",
     password: user.password || "",
