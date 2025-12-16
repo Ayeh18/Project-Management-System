@@ -1,4 +1,4 @@
-import Pagination from "@/Components/pagination";
+import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import {

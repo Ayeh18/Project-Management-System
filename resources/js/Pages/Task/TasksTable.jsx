@@ -1,5 +1,5 @@
 import TableHeading from "@/Components/TableHeading";
-import Pagination from "@/Components/pagination";
+import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from "@/constant.jsx";

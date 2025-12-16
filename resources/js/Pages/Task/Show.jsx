@@ -81,7 +81,7 @@ export default function Show({ auth, task }) {
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg">Create Date</label>
-                    <p className="mt-1">{task.create_at}</p>
+                    <p className="mt-1">{task.created_at}</p>
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg">Updated By</label>
