@@ -45,11 +45,11 @@ export default function Index({ auth, projects, queryParams = null, success }) {
   };
 
   const deleteProject = (project) => {
-    if (!window.confirm('Are you sure want to delete the project?')) {
+    if (!window.confirm("Are you sure want to delete the project?")) {
       return;
     }
-    router.delete(route('project.destroy', project.id))
-  }
+    router.delete(route("project.destroy", project.id));
+  };
 
   return (
     <AuthenticatedLayout
@@ -64,9 +64,14 @@ export default function Index({ auth, projects, queryParams = null, success }) {
           </h2>
           <Link
             href={route("project.create")}
-            className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600"
+            className="inline-flex items-center gap-2 rounded-lg
+             bg-gradient-to-r from-emerald-500 to-emerald-600
+             px-4 py-2 text-sm font-semibold text-white
+             shadow-sm hover:from-emerald-600 hover:to-emerald-700
+             focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2
+             transition"
           >
-            Add New
+            + Add Project
           </Link>
         </div>
       }
@@ -188,7 +193,7 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                         <td className="px-3 py-2">
                           <span
                             className={
-                              "px-2 py-1 rounded text-nowrap text-white " +
+                              "inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-white shadow-sm " +
                               PROJECT_STATUS_CLASS_MAP[project.status]
                             }
                           >
@@ -201,18 +206,25 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                         <td className="px-3 py-2">{project.due_date}</td>
                         <td className="px-3 py-2">{project.createdBy.name}</td>
                         <td className="px-3 py-2 text-nowrap">
-                          <Link
-                            href={route("project.edit", project.id)}
-                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
-                          >
-                            Edit
-                          </Link>
-                          <button
-                          onClick={(e) => deleteProject(project)}
-                            className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1"
-                          >
-                            Delete
-                          </button>
+                          <div className="flex justify-end gap-2">
+                            <Link
+                              href={route("project.edit", project.id)}
+                              className="inline-flex items-center rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-600
+                              hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50
+                              transition"
+                            >
+                              Edit
+                            </Link>
+
+                            <button
+                              onClick={() => deleteProject(project)}
+                              className="inline-flex items-center rounded-lg bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600
+                              hover:bg-red-100 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50
+                              transition"
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}

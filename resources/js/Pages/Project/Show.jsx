@@ -47,7 +47,7 @@ export default function Show({ auth, success, project, tasks, queryParams }) {
                     <p className="mt-1">
                       <span
                         className={
-                          "px-2 py-1 rounded text-white " +
+                          "inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-white shadow-sm " +
                           PROJECT_STATUS_CLASS_MAP[project.status]
                         }
                       >
@@ -93,6 +93,7 @@ export default function Show({ auth, success, project, tasks, queryParams }) {
                 tasks={tasks}
                 success={success}
                 queryParams={queryParams}
+                routeName="project.show"
                 hideProjectColumn={true}
               />
             </div>

@@ -161,14 +161,12 @@ export default function TasksTable({
                   <td className="px-3 py-2">{task.project.name}</td>
                 )}
                 <th className="px-3 py-2 text-gray-100 hover:underline">
-                  <Link href={route("task.show", task.id)}>
-                    {task.name}
-                  </Link>
+                  <Link href={route("task.show", task.id)}>{task.name}</Link>
                 </th>
                 <td className="px-3 py-2">
                   <span
                     className={
-                      "px-2 py-1 rounded text-nowrap text-white " +
+                      "inline-flex text-nowrap items-center rounded-full px-3 py-1 text-sm font-semibold text-white shadow-sm " +
                       TASK_STATUS_CLASS_MAP[task.status]
                     }
                   >
@@ -179,18 +177,25 @@ export default function TasksTable({
                 <td className="px-3 py-2">{task.due_date}</td>
                 <td className="px-3 py-2">{task.createdBy.name}</td>
                 <td className="px-3 py-2 text-nowrap">
-                  <Link
-                    href={route("task.edit", task.id)}
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={(e) => deleteTask(task)}
-                    className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1"
-                  >
-                    Delete
-                  </button>
+                  <div className="flex justify-end gap-2">
+                    <Link
+                      href={route("task.edit", task.id)}
+                      className="inline-flex items-center rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-600
+                              hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50
+                              transition"
+                    >
+                      Edit
+                    </Link>
+
+                    <button
+                      onClick={() => deleteTask(task)}
+                      className="inline-flex items-center rounded-lg bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600
+                              hover:bg-red-100 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50
+                              transition"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

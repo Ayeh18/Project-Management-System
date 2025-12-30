@@ -82,7 +82,7 @@ export default function Dashboard({
                   <tr key={tasks.id}>
                     <td className="px-3 py-2">{tasks.id}</td>
                     <td className="px-3 py-2 text-white font-bold hover:undeline">
-                      <Link href={route('project.show', tasks.project.id)}>
+                      <Link href={route("project.show", tasks.project.id)}>
                         {tasks.project.name}
                       </Link>
                     </td>
@@ -90,7 +90,7 @@ export default function Dashboard({
                     <td className="px-3 py-2">
                       <span
                         className={
-                          "px-2 py-1 rounded text-nowrap text-white " +
+                          "inline-flex items-center rounded-full px-3 py-1 text-SM font-semibold text-white shadow-sm " +
                           TASK_STATUS_CLASS_MAP[tasks.status]
                         }
                       >

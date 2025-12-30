@@ -34,10 +34,14 @@ class ProjectController extends Controller
             $query->where("status", request("status"));
         }
 
+        // for pagination 
         $projects = $query->orderBy($sortField, $sortDirection)
             ->paginate(10)
             ->onEachSide(1);
 
+        // return inertia page instead of blade view
+        // send project data
+        // send additional prop for frontend use
         return inertia("Project/Index", [
             "projects" => ProjectResource::collection($projects),
             'queryParams' => request()->query() ?: null,

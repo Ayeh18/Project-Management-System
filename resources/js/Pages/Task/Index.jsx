@@ -16,9 +16,14 @@ export default function Index({ auth, success, tasks, queryParams = null }) {
           </h2>
           <Link
             href={route("task.create")}
-            className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600"
+            className="inline-flex items-center gap-2 rounded-lg
+             bg-gradient-to-r from-emerald-500 to-emerald-600
+             px-4 py-2 text-sm font-semibold text-white
+             shadow-sm hover:from-emerald-600 hover:to-emerald-700
+             focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2
+             transition"
           >
-            Add New
+            + Add Task
           </Link>
         </div>
       }

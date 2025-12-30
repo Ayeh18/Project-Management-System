@@ -23,7 +23,7 @@ class TaskController extends Controller
     {
         $query = Task::query();
 
-        $sortField = request("sort_field", 'created_At' );
+        $sortField = request("sort_field", 'created_at' );
         $sortDirection = request("sort_direction", "desc" );
 
         // If the user sends a 'name' value in the request,
