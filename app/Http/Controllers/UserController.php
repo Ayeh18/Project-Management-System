@@ -56,15 +56,18 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreUserRequest $request)
-    {
-        $data = $request->validated();
-        // verified new user after create new user
-        $data['email_verified_At'] = time();
-        $data['password'] = bcrypt($data['password']);
-        User::create($data);
+{
+    $data = $request->validated();
 
-        return to_route('user.index')->with('success', 'User was created');
-    }
+    $data['password'] = bcrypt($data['password']);
+    $data['email_verified_at'] = now();
+
+    User::create($data);
+
+    return to_route('user.index')
+        ->with('success', 'User was created');
+}
+
 
     /**
      * Display the specified resource.

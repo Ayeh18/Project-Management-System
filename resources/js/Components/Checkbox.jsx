@@ -1,3 +1,5 @@
+import DangerButton from "./DangerButton";
+
 export default function Checkbox({ className = '', ...props }) {
     return (
         <input

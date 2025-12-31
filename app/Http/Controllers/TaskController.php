@@ -23,13 +23,13 @@ class TaskController extends Controller
     {
         $query = Task::query();
 
-        $sortField = request("sort_field", 'created_at' );
-        $sortDirection = request("sort_direction", "desc" );
+        $sortField = request("sort_field", 'created_at');
+        $sortDirection = request("sort_direction", "desc");
 
         // If the user sends a 'name' value in the request,
         // filter the database results to only include records whose 'name' contains that value
         if (request("name")) {
-            $query->where("name","like","%". request("name"). "%");
+            $query->where("name", "like", "%" . request("name") . "%");
         }
         // If the request contains a 'status' value,
         // only return records whose 'status' exactly matches the value
@@ -68,18 +68,19 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         $data = $request->validated();
-        /** @var \Illuminate\Http\UploadedFile|null $image */
-        $image = $data['image'] ?? null;
+
+        $data['status'] = trim($data['status']);
+        $data['priority'] = trim($data['priority']);
+
         $data['created_by'] = Auth::id();
         $data['updated_by'] = Auth::id();
-        if ($image) {
-            $data['image_path'] = $image->store('task/' . Str::random(), 'public');
-        }
 
         Task::create($data);
 
-        return to_route('task.index')->with('success', 'Task was created');
+        return to_route('task.index')
+            ->with('success', 'Task was created');
     }
+
 
     /**
      * Display the specified resource.
@@ -111,11 +112,11 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        $data =$request->validated();
+        $data = $request->validated();
         $image = $data['image'] ?? null;
         $data['updated_by'] = Auth::id();
         if ($image) {
-            if($task->image_path){
+            if ($task->image_path) {
                 Storage::disk('public')->deleteDirectory(dirname($task->image_path));
             }
             $data['image_path'] = $image->store('task/' . Str::random(), 'public');
@@ -130,28 +131,29 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-         $name = $task->name; 
+        $name = $task->name;
         $task->delete();
-        if($task->image_path){
-                Storage::disk('public')->deleteDirectory(dirname($task->image_path));
-            }
+        if ($task->image_path) {
+            Storage::disk('public')->deleteDirectory(dirname($task->image_path));
+        }
         return to_route('task.index')->with('success', "Task \"$name\" was deleted");
     }
 
-    public function myTasks() {
+    public function myTasks()
+    {
 
         // get current user
         $user = Auth::user();
 
         $query = Task::query()->where('assigned_user_id', $user->id);
 
-        $sortField = request("sort_field", 'created_At' );
-        $sortDirection = request("sort_direction", "desc" );
+        $sortField = request("sort_field", 'created_At');
+        $sortDirection = request("sort_direction", "desc");
 
         // If the user sends a 'name' value in the request,
         // filter the database results to only include records whose 'name' contains that value
         if (request("name")) {
-            $query->where("name","like","%". request("name"). "%");
+            $query->where("name", "like", "%" . request("name") . "%");
         }
         // If the request contains a 'status' value,
         // only return records whose 'status' exactly matches the value
